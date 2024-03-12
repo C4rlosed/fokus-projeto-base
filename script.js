@@ -42,34 +42,39 @@ musicaFocoInput.addEventListener('change', () => {
     }
 })
 
-
+//QUANDO O BOTÃO FOCO FOR CLICADO
 focoBt.addEventListener('click', () => {
     tempoDecorridoEmSegundos = duracaoFoco
     alterarContexto('foco')
     focoBt.classList.add('active')
 })
-
+//QUANDO O BOTÃO DESCANSO CURTO FOR CLICADO
 curtoBt.addEventListener('click', () => {
     tempoDecorridoEmSegundos = duracaoDescansoCurto
     alterarContexto('descanso-curto')
     curtoBt.classList.add('active')
 })
-
+//QUANDO O BOTÃO DESCANSO LONGO FOR CLICADO
 longoBt.addEventListener('click', () => {
     tempoDecorridoEmSegundos = duracaoDescansoLongo
     alterarContexto('descanso-longo')
     longoBt.classList.add('active')
 })
 
+//ALTERAR O TEXTO PRINCIPAL, A IMAGEM E O FOCO DO BOTÃO AO CLICAR
 function alterarContexto(contexto) {
     mostrarTempo();
+    //PARA CADA BOTÃO NÃO CLICADO, REMOVER A CLASSE 'ACTIVE'
     botoes.forEach(function (contexto) {
         contexto.classList.remove('active')
 
     });
+    //MUDANDO A COR
     html.setAttribute('data-contexto', contexto)
+    //MUDANDO A IMAGEM
     banner.setAttribute('src', `/imagens/${contexto}.png`)
 
+    //MUDANDO O TEXTO
     switch (contexto) {
         case "foco":
             titulo.innerHTML = `
@@ -93,6 +98,7 @@ function alterarContexto(contexto) {
     }
 }
 
+//CONTAGEM DE TEMPO
 const contagemRegressiva = () => {
     if (tempoDecorridoEmSegundos <= 0) {
         somTempoFinalizado.play();
@@ -104,14 +110,17 @@ const contagemRegressiva = () => {
     mostrarTempo()
 }
 
+//BOTÃO DE INICIAR E PAUSAR O TEMPO
 startPauseBt.addEventListener('click', iniciarOuPausar)
 
 function iniciarOuPausar() {
+    //QUANDO PAUSAR
     if (intervaloId) {
         somPause.play();
         zerar()
         return
     }
+    //DAR PLAY
     somPlay.play();
     intervaloId = setInterval(contagemRegressiva, 1000)
     // startOuPauseBt.innerHTML = `Pausar`
@@ -119,6 +128,7 @@ function iniciarOuPausar() {
     alterarIcone('pause')
 }
 
+//LIMPAR A CONTAGEM
 function zerar() {
     clearInterval(intervaloId)
     // startOuPauseBt.innerHTML = `Começar`
@@ -127,13 +137,16 @@ function zerar() {
     intervaloId = null
 }
 
+//ALTERAR O ICONE
 function alterarIcone(icone) {
     imgIcone.setAttribute('src', `/imagens/${icone}.png`)
 }
 
+//MOSTRAR O TEMPO NA TELA
 function mostrarTempo() {
     const tempo = new Date(tempoDecorridoEmSegundos * 1000)
     const tempoFormatado = tempo.toLocaleTimeString('pt-Br', { minute: '2-digit', second: '2-digit' })
     displayTempo.innerHTML = `${tempoFormatado}`
 }
+//SEMPRE MOSTRAR NA TELA
 mostrarTempo();
