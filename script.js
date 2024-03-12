@@ -17,7 +17,18 @@ const botaoIniciar = document.querySelector('.app__card-primary-button');
 const duracaoFoco = 1500;
 const duracaoDescansoCurto = 300;
 const duracaoDescansoLongo = 900;
+//MUSICA
+const musicaFocoInput = document.querySelector('#alternar-musica');
+const musica = new Audio('/sons/luna-rise-part-one.mp3');
+musica.loop = true;
 
+musicaFocoInput.addEventListener('change', () =>{
+    if(musica.paused){
+        musica.play();
+    }else{
+        musica.pause();
+    }
+})
 
 
 focoBt.addEventListener('click', () => {
