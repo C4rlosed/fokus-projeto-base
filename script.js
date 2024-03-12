@@ -9,7 +9,7 @@ const botoes = document.querySelectorAll('.app__card-button');
 const displayTempo = document.querySelector('#timer');
 //IMAGEM
 const banner = document.querySelector('.app__image');
-const iconePlay = document.querySelector('.app__card-primary-butto-icon')
+const imgIcone = document.querySelector('.app__card-primary-butto-icon')
 //TÍTULO
 const titulo = document.querySelector('.app__title');
 //BOTÃO COMEÇAR
@@ -108,11 +108,13 @@ function iniciarOuPausar(){
         // startOuPauseBt.innerHTML = `Começar`
         startOuPauseBt.textContent = "Começar"
         zerar()
+        alterarIcone('play_arrow')
         return
     }else{
         somPlay.play();
         // startOuPauseBt.innerHTML = `Pausar`
         startOuPauseBt.textContent = "Pausar"
+        alterarIcone('pause')
     }
     intervaloId = setInterval(contagemRegressiva, 1000)
 }
@@ -120,4 +122,8 @@ function iniciarOuPausar(){
 function zerar(){
     clearInterval(intervaloId)
     intervaloId = null
+}
+
+function alterarIcone(icone){
+    imgIcone.setAttribute('src', `/imagens/${icone}.png`)
 }
